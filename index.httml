@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kỷ Niệm 2 Năm - Trái Tim Tình Yêu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            z-index: 2;
+        }
+
+        /* Hiệu ứng trái tim chính */
+        .heart {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            animation: heartBeat 1s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 100, 0.8))
+                   drop-shadow(0 0 40px rgba(255, 0, 100, 0.6))
+                   drop-shadow(0 0 80px rgba(255, 0, 100, 0.4));
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .heart:hover {
+            filter: drop-shadow(0 0 30px rgba(255, 0, 100, 1))
+                   drop-shadow(0 0 60px rgba(255, 0, 100, 0.8))
+                   drop-shadow(0 0 100px rgba(255, 0, 100, 0.6));
+            transform: scale(1.05);
+        }
+
+        .heart:active {
+            transform: scale(1.1);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 160px;
+            background: linear-gradient(135deg, #ff6b9d, #ff1744);
+            border-radius: 50px 50px 0 0;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2);
+        }
+
+        .heart::before {
+            left: 100px;
+            top: 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart::after {
+            left: 0;
+            top: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        /* Text hiển thị */
+        .love-text {
+            margin-top: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .love-text h1 {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #ff6b9d, #ff1744, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(255, 23, 68, 0.3);
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        .date-text {
+            font-size: 1.3em;
+            color: #ff6b9d;
+            margin: 10px 0;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 107, 157, 0.8);
+        }
+
+        /* Container cho các nút */
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        /* Style chung cho các nút */
+        .btn {
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+            letter-spacing: 1px;
+            outline: none;
+            min-width: 140px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Nút Yêu Thương */
+        .btn-love {
+            background: linear-gradient(45deg, #ff1744, #ff6b9d);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 23, 68, 0.4);
+        }
+
+        .btn-love:hover {
+            box-shadow: 0 8px 25px rgba(255, 23, 68, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Nút Kỷ Niệm */
+        .btn-memory {
+            background: linear-gradient(45deg, #ff9800, #ff5722);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+        }
+
+        .btn-memory:hover {
+            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Nút Lời Hứa */
+        .btn-promise {
+            background: linear-gradient(45deg, #9c27b0, #e91e63);
+            color: white;
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+        }
+
+        .btn-promise:hover {
+            box-shadow: 0 8px 25px rgba(156, 39, 176, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Nút Nhạc */
+        .btn-music {
+            background: linear-gradient(45deg, #2196f3, #00bcd4);
+            color: white;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        .btn-music:hover {
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Nút Icon */
+        .btn span {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+        /* Modal/Popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            color: white;
+            border: 2px solid #ff6b9d;
+            box-shadow: 0 0 50px rgba(255, 107, 157, 0.5);
+            animation: slideDown 0.5s ease;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #ff6b9d;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close:hover {
+            color: #ff1744;
+            transform: scale(1.2);
+        }
+
+        .modal-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 20px 0;
+            color: #ff6b9d;
+        }
+
+        .modal-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: bounceIcon 1s infinite;
+        }
+
+        /* Love explosion effect */
+        .love-explosion {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .explosion-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: explodeHeart 1s ease-out forwards;
+        }
+
+        /* Animations */
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+            60% { transform: scale(1); }
+        }
+
+        @keyframes textGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes explodeHeart {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff6b9d;
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .heart {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .heart::before,
+            .heart::after {
+                width: 75px;
+                height: 120px;
+            }
+            
+            .love-text h1 {
+                font-size: 2em;
+            }
+            
+            .date-text {
+                font-size: 1.2em;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Love explosion container -->
+    <div class="love-explosion" id="loveExplosion"></div>
+
+    <div class="container">
+        <!-- Trái tim chính -->
+        <div class="heart" id="mainHeart" title="Nhấn vào trái tim! 💕"></div>
+
+        <!-- Text hiển thị -->
+        <div class="love-text">
+            <h1>💕 Kỷ Niệm 2 Năm 💕</h1>
+            <div class="date-text">📅 24/04/2024 - 24/04/2026</div>
+        </div>
+
+        <!-- Container các nút tương tác -->
+        <div class="buttons-container">
+            <button class="btn btn-love" onclick="sendLove()">
+                <span>💝</span> Gửi Yêu Thương
+            </button>
+            
+            <button class="btn btn-memory" onclick="showMemories()">
+                <span>📸</span> Kỷ Niệm Đẹp
+            </button>
+            
+            <button class="btn btn-promise" onclick="makePromise()">
+                <span>💍</span> Lời Hứa
+            </button>
+            
+            <button class="btn btn-music" onclick="playMusic()">
+                <span>🎵</span> Bật Nhạc
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Kỷ Niệm -->
+    <div id="memoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('memoryModal')">&times;</span>
+            <div class="modal-icon">📸</div>
+            <h2>Những Khoảnh Khắc Đẹp</h2>
+            <p class="modal-text">
+                💫 Lần đầu gặp gỡ: Ngày định mệnh<br>
+                🌟 Nụ cười đầu tiên: Không thể nào quên<br>
+                💕 Cái nắm tay đầu: Tim đập thình thịch<br>
+                🎉 Và giờ đây: 2 năm hạnh phúc!
+            </p>
+            <button class="btn btn-love" onclick="closeModal('memoryModal')">Đóng Lại 💕</button>
+        </div>
+    </div>
+
+    <!-- Modal Lời Hứa -->
+    <div id="promiseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('promiseModal')">&times;</span>
+            <div class="modal-icon">💍</div>
+            <h2>Lời Hứa Của Anh/Em</h2>
+            <p class="modal-text">
+                🤝 Sẽ luôn bên cạnh em/anh<br>
+                💪 Cùng nhau vượt qua mọi khó khăn<br>
+                😊 Luôn mang nụ cười cho nhau<br>
+                ❤️ Yêu thương mỗi ngày nhiều hơn<br>
+                🌈 Xây dựng tương lai hạnh phúc
+            </p>
+            <button class="btn btn-promise" onclick="closeModal('promiseModal')">Hứa Nhé! 💕</button>
+        </div>
+    </div>
+
+    <!-- Audio element -->
+    <audio id="loveMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Gửi yêu thương với hiệu ứng
+        function sendLove() {
+            const heart = document.getElementById('mainHeart');
+            const explosion = document.getElementById('loveExplosion');
+            
+            // Tạo hiệu ứng bùng nổ trái tim
+            for (let i = 0; i < 20; i++) {
+                const loveHeart = document.createElement('span');
+                loveHeart.classList.add('explosion-heart');
+                loveHeart.textContent = ['💕', '❤️', '💖', '💗', '💝', '✨'][Math.floor(Math.random() * 6)];
+                
+                // Random direction
+                const angle = (Math.PI * 2 * i) / 20;
+                const distance = 100 + Math.random() * 100;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                loveHeart.style.setProperty('--tx', tx + 'px');
+                loveHeart.style.setProperty('--ty', ty + 'px');
+                loveHeart.style.left = '50%';
+                loveHeart.style.top = '50%';
+                loveHeart.style.fontSize = (20 + Math.random() * 20) + 'px';
+                
+                explosion.appendChild(loveHeart);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    loveHeart.remove();
+                }, 1000);
+            }
+            
+            // Thông báo
+            showToast('💕 Yêu em/anh nhiều lắm! 💕');
+        }
+
+        // Hiển thị modal kỷ niệm
+        function showMemories() {
+            document.getElementById('memoryModal').style.display = 'block';
+        }
+
+        // Hiển thị modal lời hứa
+        function makePromise() {
+            document.getElementById('promiseModal').style.display = 'block';
+        }
+
+        // Đóng modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Đóng modal khi click outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Phát nhạc
+        function playMusic() {
+            const music = document.getElementById('loveMusic');
+            if (music.paused) {
+                music.play();
+                showToast('🎵 Nhạc tình yêu đang phát... 🎵');
+            } else {
+                music.pause();
+                showToast('🔇 Tạm dừng nhạc');
+            }
+        }
+
+        // Hiệu ứng toast notification
+        function showToast(message) {
+            // Xóa toast cũ nếu có
+            const oldToast = document.querySelector('.toast');
+            if (oldToast) oldToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(45deg, #ff1744, #ff6b9d);
+                color: white;
+                padding: 15px 30px;
+                border-radius: 50px;
+                font-size: 1.1em;
+                z-index: 2000;
+                animation: slideDownToast 0.5s ease, fadeOutToast 0.5s ease 2.5s forwards;
+                box-shadow: 0 10px 30px rgba(255, 23, 68, 0.5);
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Thêm style cho toast animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDownToast {
+                from { transform: translate(-50%, -100px); opacity: 0; }
+                to { transform: translate(-50%, 0); opacity: 1; }
+            }
+            
+            @keyframes fadeOutToast {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            
+            .heart:active {
+                transform: scale(1.2) !important;
+                filter: drop-shadow(0 0 40px rgba(255, 0, 100, 1))
+                       drop-shadow(0 0 80px rgba(255, 0, 100, 0.8))
+                       drop-shadow(0 0 120px rgba(255, 0, 100, 0.6)) !important;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Thêm sự kiện click cho trái tim chính
+        document.getElementById('mainHeart').addEventListener('click', function() {
+            sendLove();
+            this.style.animation = 'none';
+            this.offsetHeight; // Trigger reflow
+            this.style.animation = 'heartBeat 1s ease-in-out infinite';
+        });
+
+        // Hiệu ứng bàn phím
+        document.addEventListener('keydown', function(event) {
+            switch(event.key.toLowerCase()) {
+                case 'l':
+                    sendLove();
+                    break;
+                case 'm':
+                    showMemories();
+                    break;
+                case 'p':
+                    makePromise();
+                    break;
+                case 's':
+                    playMusic();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
